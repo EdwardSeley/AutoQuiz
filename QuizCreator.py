@@ -74,8 +74,9 @@ class QuestionMaker:
                 file.write("\t\t\t <li>" + str(questions[x]) + "</li> \n")
                 file.write("\t\t\t <ol> \n")
                 for y in range(0, 4):
-                    file.write("\t\t\t\t\t <li>" + str(multipleChoice[x][y]) + "</li> \n")
+                    file.write("\t\t\t\t <li>" + str(multipleChoice[x][y]) + "</li> \n")
                 file.write("\t\t\t </ol> \n")
+                file.write("\t\t\t <br> \n")
             file.write("\t\t </ol> \n")
             file.write("\t</body>\n")
             file.write("</html>\n")
