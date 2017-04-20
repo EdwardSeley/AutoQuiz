@@ -941,7 +941,7 @@ erepo : to creep out, creep over, creep up.
 erga : (+ acc.) toward, about. 
 ergo : (gen. +) on account of, because of. 
 ergo : (adv.) accordingly, then, therefore. 
-eripio : (eripui ereptum ) : to snatch away, take away, rescue. 
+eripio : to snatch away, take away, rescue. 
 erogo : to pay out. 
 erogo : to pay out, expend, disburse. 
 erro : to wander, stray, rove / be mistaken, err, go astray. 
