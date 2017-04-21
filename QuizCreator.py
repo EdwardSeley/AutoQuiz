@@ -39,7 +39,8 @@ class QuestionMaker:
         It returns a tuple of both a list of five questions and a list of four options for each question
         """
         questList = [None] * 5
-        answerList = [None] * 4
+        tempAnswerList = [None] * 4
+        correctAnswerList = [None] * 5
         multipleChoiceList = [None] * 5
         for x in range(0, 5):
             quizNumb = randint(0, len(questionDict))
@@ -47,6 +48,7 @@ class QuestionMaker:
             formattedVocabWord = self.formatString(vocabWord)
             question = "What does the Latin word " + formattedVocabWord + " mean?"
             answerNum = randint(0, 3)
+            correctAnswerList[x] = answerNum
             for y in range(0, 4):
                 if y is answerNum:
                     answer = self.formatString(str(questionDict.get(vocabWord)))
@@ -54,24 +56,37 @@ class QuestionMaker:
                     randomAnswer = list(questionDict.values())[randint(0, len(questionDict))]
                     answer = self.formatString(str(randomAnswer))
 
-                answerList[y] = answer
+                tempAnswerList[y] = answer
 
-            multipleChoiceList[x] = list(answerList)
-            questList[x] = question
+            multipleChoiceList[x] = list(tempAnswerList)
+            questList[x] = formattedVocabWord
 
-        return (questList, multipleChoiceList)
+        return (questList, multipleChoiceList, correctAnswerList)
 
     def createLayout(self, questions, multipleChoice):
         with open("Quiz.html", 'w') as file:
+            file.write("<!DOCTYPE html> \n")
             file.write("<html> \n")
             file.write("\t<head>\n")
             file.write("\t\t<title> Automated Quiz </title> \n")
+            file.write("\t\t <style type = \"text/css\"> \n")
+            file.write("\t\t\t body { \n")
+            file.write("\t\t\t\t font-family: sans-serif; \n")
+            file.write("\t\t\t\t color: darkcyan;}\n")
+            file.write("\t\t\t .latin-word { \n")
+            file.write("\t\t\t\t color: rgb(0, 62, 62); \n")
+            file.write("\t\t\t\t font-weight: bold;} \n")
+            file.write("\t\t\t h2 { \n")
+            file.write("\t\t\t\t color: rgb(0, 62, 62); \n")
+            file.write("\t\t\t\t font-weight: bold;} \n")
+            file.write("\t\t </style> \n")
             file.write("\t</head> \n")
             file.write("\t<body> \n")
             file.write("\t\t<h2> Greetings! Here is Your Daily Latin Quiz: </h2>\n")
             file.write("\t\t <ol> \n")
             for x in range(0, 5):
-                file.write("\t\t\t <li>" + str(questions[x]) + "</li> \n")
+                file.write("\t\t\t <li> What does the Latin word <span class = \"latin-word\"> "
+                           + questions[x] + " </span> mean? </li> \n")
                 file.write("\t\t\t <ol> \n")
                 for y in range(0, 4):
                     file.write("\t\t\t\t <li>" + str(multipleChoice[x][y]) + "</li> \n")
@@ -84,7 +99,7 @@ class QuestionMaker:
 
     def main(self):
         quizQuestions = self.sort("LatinWords.txt", ":")
-        latinQuestions, latinChoices = self.createQuestions(quizQuestions)
+        latinQuestions, latinChoices, answers = self.createQuestions(quizQuestions)
         self.createLayout(latinQuestions, latinChoices)
 
 if __name__ == "__main__":
